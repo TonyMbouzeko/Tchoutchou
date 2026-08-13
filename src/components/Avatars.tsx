@@ -161,7 +161,7 @@ function Boy({ reaction }: { reaction: Reaction }) {
         <g className="av-body">
           {/* buste */}
           <path d="M22 120 q0 -26 28 -26 q28 0 28 26z" fill={BOY_TOP} />
-          <path d="M42 96 h16 v6 q-8 6 -16 0z" fill={SKIN_DARK} />
+          <rect x={43} y={66} width={14} height={30} rx={7} fill={SKIN_DARK} />
           <g className="av-head">
             <ellipse cx={50} cy={49} rx={26} ry={27} fill={SKIN} />
             <ellipse cx={23} cy={52} rx={4} ry={5} fill={SKIN_DARK} />
@@ -184,13 +184,15 @@ function Girl({ reaction, lean }: { reaction: Reaction; lean?: boolean | undefin
       <g className={lean ? "av-react-lean" : ""} style={{ transformOrigin: "50px 100px" }}>
         <g className="av-body" style={{ animationDelay: "0.7s" }}>
           <path d="M22 120 q0 -26 28 -26 q28 0 28 26z" fill={GIRL_TOP} />
-          <path d="M42 96 h16 v6 q-8 6 -16 0z" fill={SKIN_DARK} />
+          <rect x={43} y={66} width={14} height={30} rx={7} fill={SKIN_DARK} />
           <g className="av-head" style={{ animationDelay: "0.9s" }}>
             {/* chignon */}
             <circle cx={50} cy={14} r={11} fill={HAIR} />
             <circle cx={41} cy={17} r={7} fill={HAIR} />
             <circle cx={59} cy={17} r={7} fill={HAIR} />
-            <path d="M14 78 q-4 -54 36 -54 q40 0 36 54 q-9 -8 -11 -30 q-11 8 -25 8 q-14 0 -25 -8 q-2 22 -11 30z" fill={HAIR} />
+            <ellipse cx={50} cy={48} rx={32} ry={33} fill={HAIR} />
+            <path d="M18 80 q0 -18 4 -28 l10 4 q-4 12 -3 24z" fill={HAIR} />
+            <path d="M82 80 q0 -18 -4 -28 l-10 4 q4 12 3 24z" fill={HAIR} />
             <ellipse cx={50} cy={49} rx={26} ry={27} fill={SKIN} />
             <ellipse cx={23} cy={54} rx={4} ry={5} fill={SKIN_DARK} />
             <ellipse cx={77} cy={54} rx={4} ry={5} fill={SKIN_DARK} />
@@ -234,7 +236,7 @@ export function AvatarScene({
         {bubble ? (
           <div
             key={bubble + reaction}
-            className="av-bubble pointer-events-none absolute -top-2 left-[55%] z-10 whitespace-nowrap rounded-2xl rounded-bl-sm border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground shadow-[var(--shadow-soft)]"
+            className="av-bubble pointer-events-none absolute -top-5 left-[48%] z-10 whitespace-nowrap rounded-2xl rounded-bl-sm border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground shadow-[var(--shadow-soft)]"
           >
             {bubble}
           </div>
