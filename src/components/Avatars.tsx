@@ -160,8 +160,8 @@ function Boy({ reaction }: { reaction: Reaction }) {
       <g className={reactionClass[reaction]} style={{ transformOrigin: "50px 100px" }}>
         <g className="av-body">
           {/* buste */}
-          <path d="M22 120 q0 -26 28 -26 q28 0 28 26z" fill={BOY_TOP} />
-          <rect x={43} y={66} width={14} height={30} rx={7} fill={SKIN_DARK} />
+          <path d="M20 120 q0 -38 30 -38 q30 0 30 38z" fill={BOY_TOP} />
+          <rect x={43} y={64} width={14} height={22} rx={7} fill={SKIN_DARK} />
           <g className="av-head">
             <ellipse cx={50} cy={49} rx={26} ry={27} fill={SKIN} />
             <ellipse cx={23} cy={52} rx={4} ry={5} fill={SKIN_DARK} />
@@ -183,8 +183,8 @@ function Girl({ reaction, lean }: { reaction: Reaction; lean?: boolean | undefin
     <svg viewBox="0 0 100 120" className="h-full w-full" role="img" aria-label="Avatar de la fille">
       <g className={lean ? "av-react-lean" : ""} style={{ transformOrigin: "50px 100px" }}>
         <g className="av-body" style={{ animationDelay: "0.7s" }}>
-          <path d="M22 120 q0 -26 28 -26 q28 0 28 26z" fill={GIRL_TOP} />
-          <rect x={43} y={66} width={14} height={30} rx={7} fill={SKIN_DARK} />
+          <path d="M20 120 q0 -38 30 -38 q30 0 30 38z" fill={GIRL_TOP} />
+          <rect x={43} y={64} width={14} height={22} rx={7} fill={SKIN_DARK} />
           <g className="av-head" style={{ animationDelay: "0.9s" }}>
             {/* chignon */}
             <circle cx={50} cy={14} r={11} fill={HAIR} />
