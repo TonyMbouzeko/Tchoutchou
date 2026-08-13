@@ -178,7 +178,7 @@ function Boy({ reaction }: { reaction: Reaction }) {
   );
 }
 
-function Girl({ reaction, lean }: { reaction: Reaction; lean?: boolean }) {
+function Girl({ reaction, lean }: { reaction: Reaction; lean?: boolean | undefined }) {
   return (
     <svg viewBox="0 0 100 120" className="h-full w-full" role="img" aria-label="Avatar de la fille">
       <g className={lean ? "av-react-lean" : ""} style={{ transformOrigin: "50px 100px" }}>
@@ -221,9 +221,9 @@ export function AvatarScene({
   bubble,
   girlLean,
 }: {
-  reaction?: Reaction;
-  bubble?: string;
-  girlLean?: boolean;
+  reaction?: Reaction | undefined;
+  bubble?: string | undefined;
+  girlLean?: boolean | undefined;
 }) {
   return (
     <div className="relative flex items-end justify-center gap-6 pb-1 pt-1 select-none">

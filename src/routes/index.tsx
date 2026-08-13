@@ -170,7 +170,7 @@ function Index() {
       {step === 6 ? <Confetti /> : null}
       <div className="w-full max-w-md">
         <section className="card-soft relative flex min-h-[80dvh] flex-col gap-5 p-5 sm:p-7">
-          <Avatar />
+          <AvatarScene reaction={mood} bubble={bubble} girlLean={girlLean} />
           {step >= 1 && step <= 5 ? <Progress step={step} /> : null}
 
           <div className="flex-1">
@@ -203,7 +203,16 @@ function Index() {
                       label={label}
                       selected={selected === label}
                       disabled={!!selected}
-                      onSelect={() => pick("question1", label, "🥹")}
+                      onSelect={() =>
+                        pick(
+                          "question1",
+                          label,
+                          "🥹",
+                          800,
+                          label.startsWith("Oui") ? "happy" : "sad",
+                          label.startsWith("Oui") ? "Ça me va 😌" : "Oh 👀",
+                        )
+                      }
                     />
                   ))}
                 </div>
@@ -223,14 +232,14 @@ function Index() {
                     label="Oui 🙂"
                     selected={selected === "Oui 🙂"}
                     disabled={!!selected}
-                    onSelect={() => pick("question2", "Oui 🙂", "🥳", 900)}
+                    onSelect={() => pick("question2", "Oui 🙂", "🥳", 1100, "excited", "Oh 👀")}
                   />
                   {selected ? null : (
                     <EscapeButton
                       onEscape={(attempt) =>
                         setAnswers((a) => ({ ...a, nonAttempts: attempt }))
                       }
-                      onCaught={() => pick("question2", "Non", "😭😭😭", 1500)}
+                      onCaught={() => pick("question2", "Non", "😭😭😭", 1500, "sad", "Bon… 😭")}
                     />
                   )}
                 </div>
@@ -249,7 +258,7 @@ function Index() {
                     label="Oui, je veux bien 🙂"
                     selected={selected === "Oui, je veux bien 🙂"}
                     disabled={!!selected}
-                    onSelect={() => pick("question3", "Oui, je veux bien 🙂", "🤍")}
+                    onSelect={() => pick("question3", "Oui, je veux bien 🙂", "🤍", 900, "happy", "Ça me va 😌")}
                   />
                   <Choice
                     small
@@ -261,6 +270,9 @@ function Index() {
                         "question3",
                         "Oui, je veux bien, mais je clique sur ce bouton parce que je ne trouve pas le bouton « Non », donc je veux bien. 🙄",
                         "😏",
+                        1000,
+                        "embarrassed",
+                        "Je prends ça 😂",
                       )
                     }
                   />
@@ -284,7 +296,9 @@ function Index() {
                     hint="Je sais que tu as lu sans mettre l'article lol. Il faut apprendre à mettre les articles sur vos mots 😂"
                     selected={selected === "Oui s'il te plaît, je veux Igname 😌"}
                     disabled={!!selected}
-                    onSelect={() => pick("question4", "Oui s'il te plaît, je veux Igname 😌", "🍠")}
+                    onSelect={() =>
+                      pick("question4", "Oui s'il te plaît, je veux Igname 😌", "🍠", 1000, "excited", "Ça me va 😌")
+                    }
                   />
                   <Choice
                     small
@@ -292,7 +306,14 @@ function Index() {
                     selected={selected.startsWith("Non c'est correct")}
                     disabled={!!selected}
                     onSelect={() =>
-                      pick("question4", "Non c'est correct… mais la première réponse m'a intéressée 👀", "😂")
+                      pick(
+                        "question4",
+                        "Non c'est correct… mais la première réponse m'a intéressée 👀",
+                        "😂",
+                        1100,
+                        "laugh",
+                        "Je prends ça 😂",
+                      )
                     }
                   />
                   <Choice
@@ -305,6 +326,9 @@ function Index() {
                         "question4",
                         "T'inquiète, te voir va me rassasier. Ça va venir dans mes yeux, ça va remplir mon ventre. 😂",
                         "🥰",
+                        1200,
+                        "surprised",
+                        "Oh 👀",
                       )
                     }
                   />
@@ -326,10 +350,16 @@ function Index() {
                         disabled={!!selected}
                         onSelect={() => {
                           setSelected("Je suis là ein 🤷🏾‍♀️");
+                          setMood("happy");
+                          setBubble("Ça me va 😌");
+                          setGirlLean(true);
                           setAnswers((a) => ({ ...a, question5: "Je suis là ein 🤷🏾‍♀️" }));
                           timers.current.push(
                             setTimeout(() => {
                               setSelected("");
+                              setMood("idle");
+                              setBubble("");
+                              setGirlLean(false);
                               setQ5Phase("input");
                             }, 800),
                           );
@@ -344,10 +374,16 @@ function Index() {
                           const v =
                             "Je suis une corporate girl très occupée 💅🏾, mais je crois que je peux accorder 2 minutes à un petit nouchi des rues dans ton genre.";
                           setSelected(v);
+                          setMood("laugh");
+                          setBubble("Je prends ça 😂");
+                          setGirlLean(true);
                           setAnswers((a) => ({ ...a, question5: v }));
                           timers.current.push(
                             setTimeout(() => {
                               setSelected("");
+                              setMood("idle");
+                              setBubble("");
+                              setGirlLean(false);
                               setQ5Phase("input");
                             }, 800),
                           );
@@ -360,6 +396,8 @@ function Index() {
                     className="animate-rise space-y-4"
                     onSubmit={(e) => {
                       e.preventDefault();
+                      setMood("excited");
+                      setBubble("Ça me va 😌");
                       setStep(6);
                     }}
                   >
