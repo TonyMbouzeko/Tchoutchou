@@ -42,11 +42,9 @@ export function EscapeButton({
       }
       return { x, y };
     });
-    setEscapes((n) => {
-      const next = n + 1;
-      onEscape(next);
-      return next;
-    });
+    const next = escapes + 1;
+    setEscapes(next);
+    onEscape(next);
   };
 
   const handleClick = () => {
