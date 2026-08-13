@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { EscapeButton } from "@/components/EscapeButton";
 import { Confetti } from "@/components/Confetti";
+import { AvatarScene, type Reaction } from "@/components/Avatars";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -73,17 +74,6 @@ function Progress({ step }: { step: number }) {
   );
 }
 
-function Avatar() {
-  return (
-    <div className="flex justify-center">
-      <div className="grid h-24 w-24 shrink-0 place-items-center rounded-full border-4 border-card bg-secondary text-3xl shadow-[var(--shadow-soft)]">
-        {/* Remplacer par une image plus tard : <img src="..." className="h-full w-full rounded-full object-cover" /> */}
-        <span className="animate-float">🫶🏾</span>
-      </div>
-    </div>
-  );
-}
-
 function Choice({
   label,
   hint,
@@ -131,6 +121,9 @@ function Index() {
   const [answers, setAnswers] = useState<Answers>(initialAnswers);
   const [selected, setSelected] = useState<string>("");
   const [reaction, setReaction] = useState<string>("");
+  const [mood, setMood] = useState<Reaction>("idle");
+  const [bubble, setBubble] = useState<string>("");
+  const [girlLean, setGirlLean] = useState(false);
   const [visibleParagraphs, setVisibleParagraphs] = useState(1);
   const [q5Phase, setQ5Phase] = useState<"choice" | "input">("choice");
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
@@ -147,6 +140,9 @@ function Index() {
     const t = setTimeout(() => {
       setSelected("");
       setReaction("");
+      setMood("idle");
+      setBubble("");
+      setGirlLean(false);
       setStep((s) => s + 1);
     }, delay);
     timers.current.push(t);
@@ -157,9 +153,14 @@ function Index() {
     value: string,
     reactionEmoji: string,
     delay = 800,
+    nextMood: Reaction = "happy",
+    bubbleText?: string,
   ) => {
     setSelected(value);
     setReaction(reactionEmoji);
+    setMood(nextMood);
+    setGirlLean(true);
+    if (bubbleText) setBubble(bubbleText);
     setAnswers((a) => ({ ...a, [key]: value }));
     advance(delay);
   };
