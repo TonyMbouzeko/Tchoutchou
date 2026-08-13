@@ -186,19 +186,44 @@ function Girl({ reaction, lean }: { reaction: Reaction; lean?: boolean | undefin
           <path d="M20 120 q0 -38 30 -38 q30 0 30 38z" fill={GIRL_TOP} />
           <rect x={43} y={64} width={14} height={22} rx={7} fill={SKIN_DARK} />
           <g className="av-head" style={{ animationDelay: "0.9s" }}>
-            {/* chignon */}
-            <circle cx={50} cy={14} r={11} fill={HAIR} />
-            <circle cx={41} cy={17} r={7} fill={HAIR} />
-            <circle cx={59} cy={17} r={7} fill={HAIR} />
-            <ellipse cx={50} cy={48} rx={32} ry={33} fill={HAIR} />
-            <path d="M18 80 q0 -18 4 -28 l10 4 q-4 12 -3 24z" fill={HAIR} />
-            <path d="M82 80 q0 -18 -4 -28 l-10 4 q4 12 3 24z" fill={HAIR} />
+            {/* cheveux frisés : nuage de boucles */}
+            {[
+              { cx: 50, cy: 16, r: 10 },
+              { cx: 38, cy: 19, r: 8 },
+              { cx: 62, cy: 19, r: 8 },
+              { cx: 28, cy: 28, r: 9 },
+              { cx: 72, cy: 28, r: 9 },
+              { cx: 22, cy: 42, r: 8.5 },
+              { cx: 78, cy: 42, r: 8.5 },
+              { cx: 20, cy: 58, r: 7 },
+              { cx: 80, cy: 58, r: 7 },
+              { cx: 26, cy: 72, r: 6.5 },
+              { cx: 74, cy: 72, r: 6.5 },
+              { cx: 36, cy: 80, r: 6 },
+              { cx: 64, cy: 80, r: 6 },
+              { cx: 50, cy: 82, r: 6 },
+            ].map((c, i) => (
+              <circle key={i} cx={c.cx} cy={c.cy} r={c.r} fill={HAIR} />
+            ))}
+            {/* boucles de texture */}
+            <g fill="none" stroke={HAIR} strokeWidth={2.2} strokeLinecap="round">
+              <path d="M30 24 q3 -3 6 0 q3 3 6 0" />
+              <path d="M58 24 q3 -3 6 0 q3 3 6 0" />
+              <path d="M24 50 q2.5 -2.5 5 0 q2.5 2.5 5 0" />
+              <path d="M66 50 q2.5 -2.5 5 0 q2.5 2.5 5 0" />
+              <path d="M34 68 q2.5 -2.5 5 0 q2.5 2.5 5 0" />
+              <path d="M56 68 q2.5 -2.5 5 0 q2.5 2.5 5 0" />
+            </g>
             <ellipse cx={50} cy={49} rx={26} ry={27} fill={SKIN} />
             <ellipse cx={23} cy={54} rx={4} ry={5} fill={SKIN_DARK} />
             <ellipse cx={77} cy={54} rx={4} ry={5} fill={SKIN_DARK} />
             <circle cx={23} cy={60} r={2.4} fill="#f2c14e" />
             <circle cx={77} cy={60} r={2.4} fill="#f2c14e" />
-            <path d="M22 40 q6 -16 28 -16 q22 0 28 16 q-10 -8 -28 -8 q-18 0 -28 8z" fill={HAIR} />
+            {/* frange frisée */}
+            <path
+              d="M22 40 q5 -10 14 -6 q7 -8 14 -2 q7 -6 14 2 q5 -4 14 6 q-12 -10 -28 -10 q-16 0 -28 10z"
+              fill={HAIR}
+            />
             <Eyes reaction={reaction === "idle" ? "idle" : "happy"} alt />
             <g stroke={LINE} strokeWidth={2} strokeLinecap="round" fill="none" opacity={0.85}>
               <path d="M33 38 q5 -3 10 -1" />
