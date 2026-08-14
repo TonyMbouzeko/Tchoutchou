@@ -388,7 +388,7 @@ function Index() {
                   />
 
                   <Choice
-                    label="Aucun des deux 😅"
+                    label="Aucun des deux je travaille ce jour, ou j'ai déjà un programme😅"
                     selected={selected === "autre"}
                     disabled={selected !== "" && selected !== "autre"}
                     onSelect={() => {
