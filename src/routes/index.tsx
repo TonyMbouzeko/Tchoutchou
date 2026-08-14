@@ -31,7 +31,6 @@ type Answers = {
   question3: string;
   question4: string;
   question5: string;
-  availability: string;
 };
 
 const initialAnswers: Answers = {
@@ -41,13 +40,12 @@ const initialAnswers: Answers = {
   question3: "",
   question4: "",
   question5: "",
-  availability: "",
 };
 
 const INTRO_PARAGRAPHS = [
   "Bonjour Tchoutchou 👋🏾",
   "Déjà, merci d'avoir ouvert mon site.",
-  "Je sais que ça fait un moment qu'on ne s'est pas parlé. Je sais aussi que ça n'a pas été tout rose entre nous ces derniers temps et je suis conscient du gros toupet que j'ai de te recontacter malgré tout 😭.",
+  "Je sais que ça fait un moment qu'on ne s'est pas parlé. Je sais aussi que ça n'a pas été tout rose entre nous ces derniers temps et je suis conscient du gros toupet que j'ai de te recontacter malgré tout.",
   "Mais si tu me le permets, j'avais envie de te voir.",
   "Je ne voyais toutefois pas de manière originale de te dire ça, et un simple message aurait été beaucoup trop lambda.",
   "Du coup, autant faire ce que je sais faire de mieux : taper sur mon clavier 👨🏾‍💻.",
@@ -125,7 +123,6 @@ function Index() {
   const [bubble, setBubble] = useState<string>("");
   const [girlLean, setGirlLean] = useState(false);
   const [visibleParagraphs, setVisibleParagraphs] = useState(1);
-  const [q5Phase, setQ5Phase] = useState<"choice" | "input">("choice");
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   useEffect(() => {
@@ -167,10 +164,9 @@ function Index() {
 
   return (
     <main className="flex min-h-[100dvh] w-full justify-center overflow-x-hidden px-4 py-6">
-      {step === 6 ? <Confetti /> : null}
       <div className="w-full max-w-md">
         <section className="card-soft relative flex min-h-[80dvh] flex-col gap-5 p-5 sm:p-7">
-          <AvatarScene reaction={mood} bubble={bubble} girlLean={girlLean} />
+          {step !== 6 ? <AvatarScene reaction={mood} bubble={bubble} girlLean={girlLean} /> : null}
           {step >= 1 && step <= 5 ? <Progress step={step} /> : null}
 
           <div className="flex-1">
@@ -197,7 +193,7 @@ function Index() {
                 <p className="text-foreground/80">J'espère que tu vas bien.</p>
                 <p className="text-lg font-semibold">Est-ce que tu te portes bien ?</p>
                 <div className="space-y-3 pt-1">
-                  {["Oui 🙂", "Non 😕", "Ah gars, je suis ein… 😭"].map((label) => (
+                  {["Oui 🙂", "Non 😕", "Mon frère... dis ce que tu veux tu dégages 🙄"].map((label) => (
                     <Choice
                       key={label}
                       label={label}
@@ -210,7 +206,7 @@ function Index() {
                           "🥹",
                           800,
                           label.startsWith("Oui") ? "happy" : "sad",
-                          label.startsWith("Oui") ? "Ça me va 😌" : "Oh 👀",
+                          label.startsWith("Oui") ? "Ça me va 😌" : "Mama!!! C'est la geurre?? 👀",
                         )
                       }
                     />
@@ -222,17 +218,17 @@ function Index() {
             {step === 2 && (
               <StepShell k="q2">
                 <h2 className="font-display text-2xl font-semibold">
-                  Ensuite… est-ce que tu accepterais de me parler ? 👀
+                  Ensuite… je vais aller droit au but. je voulais faire quelque chose vite fait, mais je ne sais pas si tu seras partante? 👀
                 </h2>
                 <p className="text-sm text-muted-foreground">
                   (N'appuie pas sur « Non » stp !! 😭)
                 </p>
                 <div className="space-y-3 pt-1">
                   <Choice
-                    label="Oui 🙂"
-                    selected={selected === "Oui 🙂"}
+                    label="Dis toujours, on verra 🙄"
+                    selected={selected === "Dis toujours, on verra 🙄"}
                     disabled={!!selected}
-                    onSelect={() => pick("question2", "Oui 🙂", "🥳", 1100, "excited", "Oh 👀")}
+                    onSelect={() => pick("question2", "Dis toujours, on verra 🙄", "🥳", 1100, "excited", "Oh 👀")}
                   />
                   {selected ? null : (
                     <EscapeButton
@@ -251,7 +247,7 @@ function Index() {
                 <h2 className="font-display text-2xl font-semibold">Pour aller plus loin…</h2>
                 <p className="text-lg">
                   Si tu as répondu « Non » à la question précédente, est-ce que tu accepterais
-                  qu'on se voie ? 👀
+                  de m'accompagner quelque part ? 👀
                 </p>
                 <div className="space-y-3 pt-1">
                   <Choice
@@ -283,52 +279,35 @@ function Index() {
             {step === 4 && (
               <StepShell k="q4">
                 <h2 className="font-display text-2xl font-semibold">
-                  Ça me fait plaisir que tu veuilles me voir :-)
+                  Ça me fait plaisir que tu sois partante!!
                 </h2>
                 <p className="text-foreground/80">
-                  Je pourrais te rendre visite et discuter un peu, si tu veux bien.
+                  Je pourrais joindre l'utile à l'agréable.
                 </p>
-                <p className="text-foreground/80">Et on ne rend jamais visite les mains vides…</p>
+                <p className="text-foreground/11000">Peut être tu ne le sais pas, mais j'aime beaucoup la Mythologie grecque, et je voulais aller voir l'Odyssée de Christopher  Nolan au cinéma. Tu as surement dû voir ça passer sur les réseaux, si tu ne l'as pas déjà vu (je n'espère pas). Ça me permettra aussi de te voir 😊</p>
                 <p className="text-lg font-semibold">Qu'est-ce que tu en penses ? 👀</p>
                 <div className="space-y-3 pt-1">
                   <Choice
-                    label="Oui s'il te plaît, je veux Igname 😌"
-                    hint="Je sais que tu as lu sans mettre l'article lol. Il faut apprendre à mettre les articles sur vos mots 😂"
-                    selected={selected === "Oui s'il te plaît, je veux Igname 😌"}
+                    label="Bon, vu que c'est si gentillement demandé... Je veux bien y refléchir 😌"
+                    selected={selected === "Bon, vu que c'est si gentillement demandé... Je veux bien y refléchir 😌"}
                     disabled={!!selected}
                     onSelect={() =>
-                      pick("question4", "Oui s'il te plaît, je veux Igname 😌", "🍠", 1000, "excited", "Ça me va 😌")
+                      pick("question4", "Bon, vu que c'est si gentillement demandé... Je veux bien y refléchir 😌",  "🥹", 1100, "excited", "Yeaaah!! 😌")
                     }
                   />
                   <Choice
                     small
-                    label="Non c'est correct… mais la première réponse m'a intéressée 👀"
-                    selected={selected.startsWith("Non c'est correct")}
+                    label="Bofffff... Je ne suis pas fan de cinéma, ni de film (cette réponse c'est seulement pour te ragebait.) 👀"
+                    selected={selected.startsWith("Bofffff... Je ne suis pas fan de cinéma, ni de film")}
                     disabled={!!selected}
                     onSelect={() =>
                       pick(
                         "question4",
-                        "Non c'est correct… mais la première réponse m'a intéressée 👀",
-                        "😂",
+                        "Bofffff... Je ne suis pas fan de cinéma, ni de film (cette réponse c'est seulement pour te ragebait.) 👀",
+                        "",
                         1100,
                         "laugh",
-                        "Je prends ça 😂",
-                      )
-                    }
-                  />
-                  <Choice
-                    small
-                    label="T'inquiète, te voir va me rassasier. Ça va venir dans mes yeux, ça va remplir mon ventre. 😂"
-                    selected={selected.startsWith("T'inquiète")}
-                    disabled={!!selected}
-                    onSelect={() =>
-                      pick(
-                        "question4",
-                        "T'inquiète, te voir va me rassasier. Ça va venir dans mes yeux, ça va remplir mon ventre. 😂",
-                        "🥰",
-                        1200,
-                        "surprised",
-                        "Oh 👀",
+                        "EKIE 😲",
                       )
                     }
                   />
@@ -338,103 +317,93 @@ function Index() {
 
             {step === 5 && (
               <StepShell k="q5">
-                {q5Phase === "choice" ? (
-                  <>
-                    <h2 className="font-display text-2xl font-semibold">
-                      Quand est-ce que tu seras dispo alors, s'il te plaît ? 👀
-                    </h2>
-                    <div className="space-y-3 pt-1">
-                      <Choice
-                        label="Je suis là ein 🤷🏾‍♀️"
-                        selected={selected === "Je suis là ein 🤷🏾‍♀️"}
-                        disabled={!!selected}
-                        onSelect={() => {
-                          setSelected("Je suis là ein 🤷🏾‍♀️");
-                          setMood("happy");
-                          setBubble("Ça me va 😌");
-                          setGirlLean(true);
-                          setAnswers((a) => ({ ...a, question5: "Je suis là ein 🤷🏾‍♀️" }));
-                          timers.current.push(
-                            setTimeout(() => {
-                              setSelected("");
-                              setMood("idle");
-                              setBubble("");
-                              setGirlLean(false);
-                              setQ5Phase("input");
-                            }, 800),
-                          );
-                        }}
-                      />
-                      <Choice
-                        small
-                        label="Je suis une corporate girl très occupée 💅🏾, mais je crois que je peux accorder 2 minutes à un petit nouchi des rues dans ton genre."
-                        selected={selected.startsWith("Je suis une corporate")}
-                        disabled={!!selected}
-                        onSelect={() => {
-                          const v =
-                            "Je suis une corporate girl très occupée 💅🏾, mais je crois que je peux accorder 2 minutes à un petit nouchi des rues dans ton genre.";
-                          setSelected(v);
-                          setMood("laugh");
-                          setBubble("Je prends ça 😂");
-                          setGirlLean(true);
-                          setAnswers((a) => ({ ...a, question5: v }));
-                          timers.current.push(
-                            setTimeout(() => {
-                              setSelected("");
-                              setMood("idle");
-                              setBubble("");
-                              setGirlLean(false);
-                              setQ5Phase("input");
-                            }, 800),
-                          );
-                        }}
-                      />
-                    </div>
-                  </>
-                ) : (
-                  <form
-                    className="animate-rise space-y-4"
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      setMood("excited");
-                      setBubble("Ça me va 😌");
-                      setStep(6);
+                <h2 className="font-display text-2xl font-semibold">
+                  Il ya 2 séances une à 18h30 et une à 22h15 au cinéplex, Laquelle est meilleure pour toi s'il te plaît ? 👀
+                </h2>
+                <div className="space-y-3 pt-1">
+                  <Choice
+                    label="Je suis une corporate girl très occupée 💅🏾, mais je crois que je peux accorder 2 minutes à un petit nouchi des rues dans ton genre. Je pense que j'ai du temps à 18h30"
+                    selected={selected === "18h30"}
+                    disabled={!!selected}
+                    onSelect={() => {
+                      setSelected("18h30");
+                      setMood("happy");
+                      setBubble("Yeessssooo!! 😌");
+                      setGirlLean(true);
+                      setAnswers((a) => ({ ...a, question5: "18h30" }));
+                      fetch("https://formspree.io/f/maewboep", {
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/json",
+                          Accept: "application/json",
+                        },
+                        body: JSON.stringify({
+                          ...answers,
+                          question5: "18h30",
+                        }),
+                      }).catch((error) => console.error("Erreur Formspree :", error));
+                      timers.current.push(
+                        setTimeout(() => {
+                          setSelected("");
+                          setMood("idle");
+                          setBubble("");
+                          setGirlLean(false);
+                          setStep(6);
+                        }, 1100),
+                      );
                     }}
-                  >
-                    <h2 className="font-display text-2xl font-semibold">😂 Okay okay…</h2>
-                    <p className="text-lg">
-                      Plus sérieusement, donne-moi un jour où tu serais dispo 👀
-                    </p>
-                    <input
-                      value={answers.availability}
-                      onChange={(e) =>
-                        setAnswers((a) => ({ ...a, availability: e.target.value }))
-                      }
-                      placeholder="Ex : samedi après 17h"
-                      className="w-full rounded-2xl border border-input bg-background px-4 py-4 text-base outline-none transition focus:border-primary focus:ring-2 focus:ring-ring/30"
-                    />
-                    <button type="submit" className="btn-primary-lg">
-                      Envoyer 💌
-                    </button>
-                  </form>
-                )}
+                  />
+                  <Choice
+                    label="Écoute, tu n'es pas assez important pour que je t'accorde du temps en journée, mais je pense que j'ai du temps à 22h15"
+                    selected={selected === "22h15"}
+                    disabled={!!selected}
+                    onSelect={() => {
+                      setSelected("22h15");
+                      setMood("laugh");
+                      setBubble("Hayyyyaaar!!");
+                      setGirlLean(true);
+                      setAnswers((a) => ({ ...a, question5: "22h15" }));
+                      fetch("https://formspree.io/f/maewboep", {
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/json",
+                          Accept: "application/json",
+                        },
+                        body: JSON.stringify({
+                          ...answers,
+                          question5: "22h15",
+                        }),
+                      }).catch((error) => console.error("Erreur Formspree :", error));
+                      timers.current.push(
+                        setTimeout(() => {
+                          setSelected("");
+                          setMood("idle");
+                          setBubble("");
+                          setGirlLean(false);
+                          setStep(6);
+                        }, 1100),
+                      );
+                    }}
+                  />
+                </div>
               </StepShell>
             )}
 
             {step === 6 && (
-              <StepShell k="final">
-                <div className="space-y-3 py-4 text-center">
-                  <p className="animate-pop text-5xl">🎉</p>
-                  <h2 className="font-display text-3xl font-semibold">Okay :-)</h2>
-                  <p className="text-lg">Je passerai donc aussitôt que possible !!</p>
-                  <p className="text-lg font-semibold">On se voit bientôt 👋🏾❤️</p>
-                  <p className="pt-3 text-sm text-muted-foreground">
-                    Merci d'avoir participé à cette expérience extrêmement sérieuse et
-                    scientifiquement rigoureuse. 😂
-                  </p>
-                </div>
-              </StepShell>
-            )}
+  <StepShell k="final">
+    <div className="flex min-h-[70dvh] flex-col items-center justify-center gap-5">
+      <img
+        src="/final-photo.jpg"
+        alt="Photo finale"
+        className="animate-rise max-h-[60dvh] w-full rounded-3xl object-contain"
+      />
+
+      <h2 className="animate-rise text-center font-display text-2xl font-semibold">
+        T'inquiète j'ai déjà reçu ta réponse. On se voit alors bientôt! 😌. 
+      </h2>
+    </div>
+  </StepShell>
+)}
           </div>
 
           {reaction ? (
@@ -453,10 +422,6 @@ function Index() {
             </button>
           ) : null}
         </section>
-
-        <p className="pt-4 text-center text-xs text-muted-foreground">
-          Fait avec ❤️ pour Tchoutchou
-        </p>
       </div>
     </main>
   );

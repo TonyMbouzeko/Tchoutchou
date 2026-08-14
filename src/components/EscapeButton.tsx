@@ -1,12 +1,12 @@
 import { useRef, useState } from "react";
 
 const LABELS = [
-  "Non",
-  "J'ai dit n'appuie pas 😭",
-  "Tchoutchou ??? 😭",
-  "Tu forces ein",
-  "Pourquoi tu me fais ça ? 😭",
-  "Bon d'accord...",
+  "Ekie!!!",
+  "Asseh ein!!!! 😭",
+  "Tchoutchou!!!??? 😭",
+  "Merde! la fille si veut vraiment dire non! ",
+  "AHIIIIII!!!!",
+  "Ah gagne alors!",
 ];
 
 const MAX_ESCAPES = 6;

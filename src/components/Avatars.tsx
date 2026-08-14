@@ -1,8 +1,4 @@
-/**
- * Deux petits personnages illustrés (SVG) : la fille (Tchoutchou) et le garçon.
- * Animations idle en CSS (respiration, balancement, clignement) + réactions
- * déclenchées via la prop `reaction`.
- */
+import { motion } from "framer-motion";
 
 export type Reaction =
   | "idle"
@@ -13,238 +9,192 @@ export type Reaction =
   | "laugh"
   | "embarrassed";
 
-const SKIN = "#8d5524";
-const SKIN_DARK = "#7a471d";
-const HAIR = "#241a16";
-const BLUSH = "#c46a5a";
-const LINE = "#2b1c14";
-
-const BOY_TOP = "#3f6f63";
-const GIRL_TOP = "#c46a4a";
-
-const reactionClass: Record<Reaction, string> = {
-  idle: "",
-  happy: "av-react-happy",
-  excited: "av-react-excited",
-  sad: "av-react-sad",
-  surprised: "av-react-surprised",
-  laugh: "av-react-laugh",
-  embarrassed: "av-react-embarrassed",
-};
-
-function Eyes({ reaction, alt }: { reaction: Reaction; alt?: boolean }) {
-  if (reaction === "laugh" || reaction === "happy" || reaction === "excited") {
-    return (
-      <g stroke={LINE} strokeWidth={2.4} strokeLinecap="round" fill="none">
-        <path d="M35 47 q4.5 -5 9 0" />
-        <path d="M56 47 q4.5 -5 9 0" />
-      </g>
-    );
-  }
-  if (reaction === "sad") {
-    return (
-      <g stroke={LINE} strokeWidth={2.4} strokeLinecap="round" fill="none">
-        <path d="M35 48 q4.5 4 9 0" />
-        <path d="M56 48 q4.5 4 9 0" />
-      </g>
-    );
-  }
-  const r = reaction === "surprised" ? 4.6 : 3.1;
-  return (
-    <g className={alt ? "av-eyes-alt" : "av-eyes"}>
-      <ellipse cx={39.5} cy={47} rx={r} ry={r} fill={LINE} />
-      <ellipse cx={60.5} cy={47} rx={r} ry={r} fill={LINE} />
-      <circle cx={41} cy={45.6} r={1.1} fill="#fff" />
-      <circle cx={62} cy={45.6} r={1.1} fill="#fff" />
-    </g>
-  );
-}
-
-function Mouth({ reaction }: { reaction: Reaction }) {
-  switch (reaction) {
-    case "laugh":
-      return <path d="M42 57 q8 10 16 0 q-8 3 -16 0z" fill={LINE} />;
-    case "excited":
-    case "happy":
-      return (
-        <path d="M42 56 q8 8 16 0" stroke={LINE} strokeWidth={2.4} fill="none" strokeLinecap="round" />
-      );
-    case "sad":
-      return (
-        <path d="M43 60 q7 -6 14 0" stroke={LINE} strokeWidth={2.4} fill="none" strokeLinecap="round" />
-      );
-    case "surprised":
-      return <ellipse cx={50} cy={58} rx={4} ry={5} fill={LINE} />;
-    case "embarrassed":
-      return (
-        <path d="M43 58 q4 3 7 -1 q3 -4 7 1" stroke={LINE} strokeWidth={2.2} fill="none" strokeLinecap="round" />
-      );
-    default:
-      return (
-        <path d="M44 57 q6 5 12 0" stroke={LINE} strokeWidth={2.2} fill="none" strokeLinecap="round" />
-      );
-  }
-}
-
-function Sparkles() {
-  return (
-    <g>
-      {[
-        { x: 22, y: 32, d: "0s", c: "#f2c14e" },
-        { x: 78, y: 28, d: "0.15s", c: "#e07a5f" },
-        { x: 70, y: 42, d: "0.3s", c: "#f2c14e" },
-      ].map((s) => (
-        <path
-          key={s.d}
-          className="av-spark"
-          style={{ animationDelay: s.d, transformOrigin: `${s.x}px ${s.y}px` }}
-          d={`M${s.x} ${s.y - 4} l1.4 3 3 1.4 -3 1.4 -1.4 3 -1.4 -3 -3 -1.4 3 -1.4z`}
-          fill={s.c}
-        />
-      ))}
-    </g>
-  );
-}
-
-function Hearts() {
-  return (
-    <g>
-      {[
-        { x: 24, y: 30, d: "0s" },
-        { x: 76, y: 34, d: "0.25s" },
-      ].map((h) => (
-        <path
-          key={h.d}
-          className="av-spark"
-          style={{ animationDelay: h.d, transformOrigin: `${h.x}px ${h.y}px` }}
-          d={`M${h.x} ${h.y + 3} c-4 -3.4 -5.4 -6 -3.2 -7.8 1.7 -1.4 3.2 0 3.2 1 0 -1 1.5 -2.4 3.2 -1 2.2 1.8 0.8 4.4 -3.2 7.8z`}
-          fill="#d05f5f"
-        />
-      ))}
-    </g>
-  );
-}
-
-function Face({ reaction }: { reaction: Reaction }) {
-  return (
-    <>
-      <Eyes reaction={reaction} />
-      <g stroke={LINE} strokeWidth={2} strokeLinecap="round" fill="none" opacity={0.85}>
-        <path d={reaction === "sad" ? "M33 39 q5 3 10 1" : "M33 38 q5 -3 10 -1"} />
-        <path d={reaction === "sad" ? "M67 39 q-5 3 -10 1" : "M67 38 q-5 -3 -10 -1"} />
-      </g>
-      <Mouth reaction={reaction} />
-      <ellipse
-        cx={32}
-        cy={54}
-        rx={5}
-        ry={3}
-        fill={BLUSH}
-        opacity={reaction === "embarrassed" ? 0.55 : 0.25}
-      />
-      <ellipse
-        cx={68}
-        cy={54}
-        rx={5}
-        ry={3}
-        fill={BLUSH}
-        opacity={reaction === "embarrassed" ? 0.55 : 0.25}
-      />
-    </>
-  );
-}
-
-function Boy({ reaction }: { reaction: Reaction }) {
-  return (
-    <svg viewBox="0 0 100 120" className="h-full w-full" role="img" aria-label="Avatar du garçon">
-      <g className={reactionClass[reaction]} style={{ transformOrigin: "50px 100px" }}>
-        <g className="av-body">
-          {/* buste */}
-          <path d="M20 120 q0 -38 30 -38 q30 0 30 38z" fill={BOY_TOP} />
-          <rect x={43} y={64} width={14} height={22} rx={7} fill={SKIN_DARK} />
-          <g className="av-head">
-            <ellipse cx={50} cy={49} rx={26} ry={27} fill={SKIN} />
-            <ellipse cx={23} cy={52} rx={4} ry={5} fill={SKIN_DARK} />
-            <ellipse cx={77} cy={52} rx={4} ry={5} fill={SKIN_DARK} />
-            {/* cheveux courts */}
-            <path d="M24 42 q3 -22 26 -22 q23 0 26 22 q-6 -9 -26 -9 q-20 0 -26 9z" fill={HAIR} />
-            <Face reaction={reaction} />
-          </g>
-        </g>
-        {reaction === "happy" ? <Hearts /> : null}
-        {reaction === "excited" ? <Sparkles /> : null}
-      </g>
-    </svg>
-  );
-}
-
-function Girl({ reaction, lean }: { reaction: Reaction; lean?: boolean | undefined }) {
-  return (
-    <svg viewBox="0 0 100 120" className="h-full w-full" role="img" aria-label="Avatar de la fille">
-      <g className={lean ? "av-react-lean" : ""} style={{ transformOrigin: "50px 100px" }}>
-        <g className="av-body" style={{ animationDelay: "0.7s" }}>
-          <path d="M20 120 q0 -38 30 -38 q30 0 30 38z" fill={GIRL_TOP} />
-          <rect x={43} y={64} width={14} height={22} rx={7} fill={SKIN_DARK} />
-          <g className="av-head" style={{ animationDelay: "0.9s" }}>
-            {/* chignon et cheveux lisses */}
-            <circle cx={50} cy={14} r={11} fill={HAIR} />
-            <circle cx={41} cy={17} r={7} fill={HAIR} />
-            <circle cx={59} cy={17} r={7} fill={HAIR} />
-            <ellipse cx={50} cy={48} rx={32} ry={33} fill={HAIR} />
-            <path d="M18 80 q0 -18 4 -28 l10 4 q-4 12 -3 24z" fill={HAIR} />
-            <path d="M82 80 q0 -18 -4 -28 l-10 4 q4 12 3 24z" fill={HAIR} />
-            <ellipse cx={50} cy={49} rx={26} ry={27} fill={SKIN} />
-            <ellipse cx={23} cy={54} rx={4} ry={5} fill={SKIN_DARK} />
-            <ellipse cx={77} cy={54} rx={4} ry={5} fill={SKIN_DARK} />
-            <circle cx={23} cy={60} r={2.4} fill="#f2c14e" />
-            <circle cx={77} cy={60} r={2.4} fill="#f2c14e" />
-            <path d="M22 40 q6 -16 28 -16 q22 0 28 16 q-10 -8 -28 -8 q-18 0 -28 8z" fill={HAIR} />
-            <Eyes reaction={reaction === "idle" ? "idle" : "happy"} alt />
-            <g stroke={LINE} strokeWidth={2} strokeLinecap="round" fill="none" opacity={0.85}>
-              <path d="M33 38 q5 -3 10 -1" />
-              <path d="M67 38 q-5 -3 -10 -1" />
-            </g>
-            <path
-              d="M44 57 q6 6 12 0"
-              stroke={LINE}
-              strokeWidth={2.2}
-              fill="none"
-              strokeLinecap="round"
-            />
-            <ellipse cx={32} cy={54} rx={5} ry={3} fill={BLUSH} opacity={0.3} />
-            <ellipse cx={68} cy={54} rx={5} ry={3} fill={BLUSH} opacity={0.3} />
-          </g>
-        </g>
-      </g>
-    </svg>
-  );
+interface AvatarSceneProps {
+  reaction?: Reaction;
+  bubble?: string;
+  girlLean?: boolean;
 }
 
 export function AvatarScene({
   reaction = "idle",
   bubble,
-  girlLean,
-}: {
-  reaction?: Reaction | undefined;
-  bubble?: string | undefined;
-  girlLean?: boolean | undefined;
-}) {
+  girlLean = false,
+}: AvatarSceneProps) {
+
+  // Animation du garçon selon la réaction
+  const boyAnimation = () => {
+    switch (reaction) {
+      case "happy":
+        return {
+          y: [0, -10, 0],
+          scale: [1, 1.05, 1],
+        };
+
+      case "excited":
+        return {
+          y: [0, -18, 0, -10, 0],
+          rotate: [0, -3, 3, -2, 0],
+        };
+
+      case "sad":
+        return {
+          y: [0, 8],
+          rotate: [0, -3],
+          scale: [1, 0.97],
+        };
+
+      case "surprised":
+        return {
+          scale: [1, 1.12, 1],
+          x: [0, -8, 0],
+        };
+
+      case "laugh":
+        return {
+          rotate: [0, -3, 3, -3, 0],
+          y: [0, 4, 0, 4, 0],
+        };
+
+      case "embarrassed":
+        return {
+          rotate: [0, -4, 0],
+          x: [0, -5, 0],
+        };
+
+      default:
+        return {
+          y: [0, -3, 0],
+        };
+    }
+  };
+
   return (
-    <div className="relative flex items-end justify-center gap-6 pb-1 pt-1 select-none">
-      <div className="relative h-24 w-20 shrink-0 overflow-visible">
-        <Boy reaction={reaction} />
-        {bubble ? (
-          <div
-            key={bubble + reaction}
-            className="av-bubble pointer-events-none absolute -top-5 left-[48%] z-10 whitespace-nowrap rounded-2xl rounded-bl-sm border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground shadow-[var(--shadow-soft)]"
+    <div className="relative w-full flex justify-center items-end min-h-[230px] md:min-h-[300px] overflow-visible">
+
+      {/* GARÇON */}
+      <motion.div
+        className="relative z-20 -mr-5 md:-mr-8"
+        animate={boyAnimation()}
+        transition={
+          reaction === "idle"
+            ? {
+                duration: 3.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }
+            : {
+                duration: 0.7,
+                ease: "easeOut",
+              }
+        }
+      >
+        <img
+          src="/avatars/boy.png"
+          alt="Avatar garçon"
+          className="
+            h-[210px]
+            md:h-[285px]
+            w-auto
+            object-contain
+            drop-shadow-xl
+            select-none
+            pointer-events-none
+          "
+        />
+
+        {/* Bulle de réaction */}
+        {bubble && (
+          <motion.div
+            initial={{
+              opacity: 0,
+              scale: 0.7,
+              y: 10,
+            }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              y: 0,
+            }}
+            exit={{
+              opacity: 0,
+              scale: 0.8,
+            }}
+            className="
+              absolute
+              -top-3
+              left-[60%]
+              bg-white
+              text-gray-800
+              px-4
+              py-2
+              rounded-2xl
+              shadow-lg
+              whitespace-nowrap
+              text-sm
+              md:text-base
+              font-medium
+              z-40
+            "
           >
             {bubble}
-          </div>
-        ) : null}
-      </div>
-      <div className="relative h-24 w-20 shrink-0">
-        <Girl reaction={reaction} lean={girlLean} />
-      </div>
+
+            <div
+              className="
+                absolute
+                -bottom-2
+                left-5
+                w-4
+                h-4
+                bg-white
+                rotate-45
+              "
+            />
+          </motion.div>
+        )}
+
+    
+      </motion.div>
+
+      {/* FILLE */}
+      <motion.div
+        className="relative z-10 -ml-5 md:-ml-8"
+        animate={
+          girlLean
+            ? {
+                x: [-5, -14, -8],
+                rotate: [0, -2, 0],
+              }
+            : {
+                y: [0, -3, 0],
+              }
+        }
+        transition={
+          girlLean
+            ? {
+                duration: 0.6,
+              }
+            : {
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }
+        }
+      >
+        <img
+          src="/avatars/girl.png"
+          alt="Avatar fille"
+          className="
+            h-[205px]
+            md:h-[280px]
+            w-auto
+            object-contain
+            drop-shadow-xl
+            select-none
+            pointer-events-none
+          "
+        />
+      </motion.div>
+
     </div>
   );
 }
