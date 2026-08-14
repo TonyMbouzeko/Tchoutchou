@@ -7,13 +7,13 @@ import { AvatarScene, type Reaction } from "@/components/Avatars";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Un petit mot pour Tchoutchou 💌" },
+      { title: "Massah" },
       {
         name: "description",
         content:
           "Une petite expérience interactive, très sérieuse et scientifiquement rigoureuse, créée spécialement pour Tchoutchou.",
       },
-      { property: "og:title", content: "Un petit mot pour Tchoutchou 💌" },
+      { property: "og:title", content: "Massah" },
       {
         property: "og:description",
         content: "Quelques questions, un bouton qui fuit, et beaucoup d'igname. 😂",
@@ -319,7 +319,7 @@ function Index() {
             {step === 5 && (
               <StepShell k="q5">
                 <h2 className="font-display text-2xl font-semibold">
-                  Il ya 2 séances une à 18h30 et une à 22h15 au cinéplex, Laquelle est meilleure pour toi s'il te plaît ? 👀
+                  Il ya 2 séances ce Samedi, une à 18h30 et une à 22h15 au cinéplex, Laquelle est meilleure pour toi s'il te plaît ? 👀
                 </h2>
                 <div className="space-y-3 pt-1">
                   <Choice
