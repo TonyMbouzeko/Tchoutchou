@@ -123,6 +123,7 @@ function Index() {
   const [bubble, setBubble] = useState<string>("");
   const [girlLean, setGirlLean] = useState(false);
   const [visibleParagraphs, setVisibleParagraphs] = useState(1);
+  const [otherAvailability, setOtherAvailability] = useState("");
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   useEffect(() => {
@@ -385,6 +386,75 @@ function Index() {
                       );
                     }}
                   />
+
+                  <Choice
+                    label="Aucun des deux 😅"
+                    selected={selected === "autre"}
+                    disabled={selected !== "" && selected !== "autre"}
+                    onSelect={() => {
+                      setSelected("autre");
+                      setMood("surprised");
+                      setBubble("Ahh 😭");
+                      setGirlLean(false);
+                    }}
+                  />
+
+                  {selected === "autre" && (
+                    <form
+                      className="animate-rise space-y-3 pt-2"
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        const disponibilite = otherAvailability.trim();
+                        if (!disponibilite) return;
+
+                        setAnswers((a) => ({
+                          ...a,
+                          question5: `Autre disponibilité : ${disponibilite}`,
+                        }));
+
+                        fetch("https://formspree.io/f/maewboep", {
+                          method: "POST",
+                          headers: {
+                            "Content-Type": "application/json",
+                            Accept: "application/json",
+                          },
+                          body: JSON.stringify({
+                            ...answers,
+                            question5: "Autre disponibilité",
+                            disponibilite,
+                          }),
+                        }).catch((error) =>
+                          console.error("Erreur Formspree :", error),
+                        );
+
+                        setMood("happy");
+                        setBubble("Okay, ça marche 😌");
+
+                        timers.current.push(
+                          setTimeout(() => {
+                            setSelected("");
+                            setMood("idle");
+                            setBubble("");
+                            setGirlLean(false);
+                            setStep(6);
+                          }, 1100),
+                        );
+                      }}
+                    >
+                      <input
+                        type="text"
+                        value={otherAvailability}
+                        onChange={(e) => setOtherAvailability(e.target.value)}
+                        required
+                        placeholder="Dis-moi quand tu serais disponible 👀"
+                        className="w-full rounded-2xl border border-input bg-background px-4 py-4 text-base outline-none transition focus:border-primary focus:ring-2 focus:ring-ring/30"
+                      />
+
+                      <button type="submit" className="btn-primary-lg">
+                        Envoyer 😌
+                      </button>
+                    </form>
+                  )}
                 </div>
               </StepShell>
             )}
