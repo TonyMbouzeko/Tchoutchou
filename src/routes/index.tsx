@@ -44,8 +44,8 @@ const initialAnswers: Answers = {
 
 const INTRO_PARAGRAPHS = [
   "Bonjour Tchoutchou 👋🏾",
-  "Déjà, merci d'avoir ouvert mon site.",
-  "Je sais que ça fait un moment qu'on ne s'est pas parlé. Je sais aussi que ça n'a pas été tout rose entre nous ces derniers temps et je suis conscient du gros toupet que j'ai de te recontacter malgré tout.",
+  "Déjà, merci d'avoir cliqué sur mon lien, si tu te demandes où tu es, tu sur un site web que j'ai conçu moi même.",
+  "Je sais que ça fait un moment qu'on ne s'est pas parlé, pour plusieurs raisons valables biensûr. Je sais aussi que ça n'a pas été tout rose entre nous ces derniers temps et je suis conscient du gros toupet que j'ai de te recontacter malgré tout.",
   "Mais si tu me le permets, j'avais envie de te voir.",
   "Je ne voyais toutefois pas de manière originale de te dire ça, et un simple message aurait été beaucoup trop lambda.",
   "Du coup, autant faire ce que je sais faire de mieux : taper sur mon clavier 👨🏾‍💻.",
