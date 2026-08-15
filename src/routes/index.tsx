@@ -247,7 +247,7 @@ function Index() {
               <StepShell k="q3">
                 <h2 className="font-display text-2xl font-semibold">Pour aller plus loin…</h2>
                 <p className="text-lg">
-                  Je sais que tu as essayé de répondre "non" à la question précédente, Mais bon... c'est mon site je fais un peu ce que je veux 😼. Bon... Est-ce que tu accepterais
+                  Je sais que tu as essayé de répondre "non" à la question précédente, Mais bon... c'est mon site je fais un peu ce que je veux 😼🥱. Bon... Est-ce que tu accepterais
                   de m'accompagner quelque part ? 👀
                 </p>
                 <div className="space-y-3 pt-1">
