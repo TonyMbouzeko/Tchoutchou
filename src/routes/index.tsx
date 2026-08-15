@@ -46,7 +46,7 @@ const INTRO_PARAGRAPHS = [
   "Bonjour Tchoutchou 👋🏾",
   "Déjà, merci d'avoir cliqué sur mon lien, si tu te demandes où tu es, tu sur un site web que j'ai conçu moi même.",
   "Je sais que ça fait un moment qu'on ne s'est pas parlé, pour plusieurs raisons valables biensûr. Je sais aussi que ça n'a pas été tout rose entre nous ces derniers temps et je suis conscient du gros toupet que j'ai de te recontacter malgré tout.",
-  "Mais si tu me le permets, j'avais envie de te voir.",
+  "Mais si tu me le permets, j'avais envie de te voir.", 
   "Je ne voyais toutefois pas de manière originale de te dire ça, et un simple message aurait été beaucoup trop lambda.",
   "Du coup, autant faire ce que je sais faire de mieux : taper sur mon clavier 👨🏾‍💻.",
   "J'ai donc décidé de créer un petit site web pour qu'on puisse interagir.",
@@ -219,7 +219,7 @@ function Index() {
             {step === 2 && (
               <StepShell k="q2">
                 <h2 className="font-display text-2xl font-semibold">
-                  Ensuite… je vais aller droit au but. je voulais faire quelque chose vite fait, mais je ne sais pas si tu seras partante? 👀
+                  Ensuite… je vais aller droit au but. comme je t'ai dit dans mon message précédent, je voulais te voir, et je me suis dis pourquoi ne pas joinre l'utile à l'agréable? je voulais proposer quelque chose vite fait, mais je ne sais pas si tu seras partante. Je comprendrais biensûr si tu ne l'es pas? 👀
                 </h2>
                 <p className="text-sm text-muted-foreground">
                   (N'appuie pas sur « Non » stp !! 😭)
@@ -247,15 +247,15 @@ function Index() {
               <StepShell k="q3">
                 <h2 className="font-display text-2xl font-semibold">Pour aller plus loin…</h2>
                 <p className="text-lg">
-                  Si tu as répondu « Non » à la question précédente, est-ce que tu accepterais
+                  Je sais que tu as essayé de répondre "non" à la question précédente, Mais bon... c'est mon site je fais un peu ce que je veux 💅🏾😼. Bon... Est-ce que tu accepterais
                   de m'accompagner quelque part ? 👀
                 </p>
                 <div className="space-y-3 pt-1">
                   <Choice
-                    label="Oui, je veux bien 🙂"
+                    label="Ahhhhiii, Oui, je veux bien, mais faut dire l'affaire là on quitte dessus. 🤨 "
                     selected={selected === "Oui, je veux bien 🙂"}
                     disabled={!!selected}
-                    onSelect={() => pick("question3", "Oui, je veux bien 🙂", "🤍", 900, "happy", "Ça me va 😌")}
+                    onSelect={() => pick("question3", "Oui, je veux bien 🙂", "🎊", 1000, "happy", "Ça me va 😌")}
                   />
                   <Choice
                     small
@@ -285,7 +285,7 @@ function Index() {
                 <p className="text-foreground/80">
                   Je pourrais joindre l'utile à l'agréable.
                 </p>
-                <p className="text-foreground/11000">Peut être tu ne le sais pas, mais j'aime beaucoup la Mythologie grecque, et je voulais aller voir l'Odyssée de Christopher  Nolan au cinéma. Tu as surement dû voir ça passer sur les réseaux, si tu ne l'as pas déjà vu (je n'espère pas). Ça me permettra aussi de te voir 😊</p>
+                <p className="text-foreground/11000">Peut être tu ne le sais pas, mais j'aime beaucoup la Mythologie grecque, et je voulais aller voir l'Odyssée de Christopher  Nolan au cinéma. Tu as surement dû voir ça passer sur les réseaux, si tu ne l'as pas déjà vu (je n'espère pas).</p>
                 <p className="text-lg font-semibold">Qu'est-ce que tu en penses ? 👀</p>
                 <div className="space-y-3 pt-1">
                   <Choice
@@ -305,7 +305,7 @@ function Index() {
                       pick(
                         "question4",
                         "Bofffff... Je ne suis pas fan de cinéma, ni de film (cette réponse c'est seulement pour te ragebait.) 👀",
-                        "",
+                        "😤",
                         1100,
                         "laugh",
                         "EKIE 😲",
