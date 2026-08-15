@@ -502,7 +502,7 @@ function Index() {
       />
 
       <h2 className="animate-rise text-center font-display text-2xl font-semibold">
-        T'inquiète j'ai déjà reçu ta réponse. On se voit alors bientôt! 😌. 
+        T'inquiète j'ai déjà reçu ta réponse. On se voit alors bientôt! 🙂. Je passerais chez toi te prendre si tu veux bien. Merci d'avoir pris le temps de me répondre!
       </h2>
     </div>
   </StepShell>
