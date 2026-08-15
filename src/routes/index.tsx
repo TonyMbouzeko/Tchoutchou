@@ -323,7 +323,7 @@ function Index() {
                 </h2>
                 <div className="space-y-3 pt-1">
                   <Choice
-                    label="14h45, ça me va 😌"
+                    label="Bon... je peux t'accorder du temps à 14h45, mais bon c'est seulement parce que tu veux ein..."
                     selected={selected === "14h45"}
                     disabled={!!selected}
                     onSelect={() => {
