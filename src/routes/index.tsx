@@ -252,7 +252,7 @@ function Index() {
                 </p>
                 <div className="space-y-3 pt-1">
                   <Choice
-                    label="Ahhhhiii, Oui, je veux bien, mais faut dire l'affaire là on quitte dessus. 🤨 "
+                    label="Ahhhhiii, Oui, je veux bien, mais faut dire affaire ça là là on quitte dessus. 🤨 "
                     selected={selected === "Oui, je veux bien 🙂"}
                     disabled={!!selected}
                     onSelect={() => pick("question3", "Oui, je veux bien 🙂", "🎊", 1000, "happy", "Ça me va 😌")}
