@@ -207,7 +207,7 @@ function Index() {
                           "🥹",
                           800,
                           label.startsWith("Oui") ? "happy" : "sad",
-                          label.startsWith("Oui") ? "Ça me va 😌" : "Mama!!! C'est la geurre?? 👀",
+                          label.startsWith("Oui") ? "Ça me va 😌" : "Mama!!! C'est la guerre?? 👀",
                         )
                       }
                     />
