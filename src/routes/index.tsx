@@ -319,9 +319,42 @@ function Index() {
             {step === 5 && (
               <StepShell k="q5">
                 <h2 className="font-display text-2xl font-semibold">
-                  Il ya 2 séances ce Samedi, une à 18h30 et une à 22h15 au cinéplex, Laquelle est meilleure pour toi s'il te plaît ? 👀
+                  Il y a 3 séances ce Samedi, une à 14h45, une à 18h30 et une à 22h15 au cinéplex. Laquelle est meilleure pour toi s'il te plaît ? 👀
                 </h2>
                 <div className="space-y-3 pt-1">
+                  <Choice
+                    label="14h45, ça me va 😌"
+                    selected={selected === "14h45"}
+                    disabled={!!selected}
+                    onSelect={() => {
+                      setSelected("14h45");
+                      setMood("happy");
+                      setBubble("Yeessssooo!! 😌");
+                      setGirlLean(true);
+                      setAnswers((a) => ({ ...a, question5: "14h45" }));
+                      fetch("https://formspree.io/f/maewboep", {
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/json",
+                          Accept: "application/json",
+                        },
+                        body: JSON.stringify({
+                          ...answers,
+                          question5: "14h45",
+                        }),
+                      }).catch((error) => console.error("Erreur Formspree :", error));
+                      timers.current.push(
+                        setTimeout(() => {
+                          setSelected("");
+                          setMood("idle");
+                          setBubble("");
+                          setGirlLean(false);
+                          setStep(6);
+                        }, 1100),
+                      );
+                    }}
+                  />
+
                   <Choice
                     label="Je suis une corporate girl très occupée 💅🏾, mais je crois que je peux accorder 2 minutes à un petit nouchi des rues dans ton genre. Je pense que j'ai du temps à 18h30"
                     selected={selected === "18h30"}
